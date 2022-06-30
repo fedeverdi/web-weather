@@ -12,7 +12,7 @@ The component uses [Open Meteo Api](https://open-meteo.com)
 npm install web-weather
 ```
 
-### Example
+## Getting started
 
 ```js
 require('web-weather');
