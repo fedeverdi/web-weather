@@ -26,6 +26,7 @@ export declare class MyElement extends LitElement {
     meteoClient: WeatherClient;
     private loading;
     private traduzioni;
+    static styles: import("lit").CSSResult;
     connectedCallback(): void;
     propertyValidate(): void;
     render(): import("lit-html").TemplateResult<1>;

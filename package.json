@@ -1,7 +1,7 @@
 {
   "name": "web-weather",
   "private": false,
-  "version": "1.6.9",
+  "version": "1.7.0",
   "main": "dist/web-weather.es.js",
   "exports": {
     ".": "./dist/web-weather.es.js"
