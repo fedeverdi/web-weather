@@ -3,6 +3,7 @@ import { customElement, property } from 'lit/decorators.js'
 import WeatherClient from './class/client.class';
 import {styleMap} from 'lit-html/directives/style-map.js';
 import Translate from './lang/translate';
+import { style } from './assets/styles/theme1.css';
 
 /**
  * An example element.
@@ -35,8 +36,10 @@ export class MyElement extends LitElement {
   public meteoClient = new WeatherClient();
   private loading = false;
   private traduzioni = new Translate();
-  
-  connectedCallback() {
+
+  static styles = style;
+
+  connectedCallback(): void {
     this.propertyValidate();
     super.connectedCallback();
     this.meteoClient = new WeatherClient(this.lang);
@@ -89,10 +92,10 @@ export class MyElement extends LitElement {
     return html`
     ${this.loading?
       this.renferLoading() :      
-      html `<div style=${styleMap(styles)}>
-        <div style="font-size: 2em; margin-bottom: 10px">${this.title}</div>
-        <div style="font-size: 3em">${this.data ? this.data.current_weather.temperature : null}°</div>
-        <div style="margin-bottom:10px">
+      html `<div class="main-card" style=${styleMap(styles)}>
+        <div class="titolo">${this.title}</div>
+        <div class="temperatura">${this.data ? this.data.current_weather.temperature : null}°</div>
+        <div class="testo-base">
           <b>
             ${this.data ? this.meteoClient.getCodiceMeteo(this.data.current_weather.weathercode) : null}
           </b>
@@ -110,18 +113,18 @@ export class MyElement extends LitElement {
           </b>
         </div>
         ${this.nextdays ? html `
-          <div style="display: flex; padding-top:10px; margin-top:10px; border-top: 1px solid #F1F1F1; font-size: 0.7em;">
+          <div class="griglia-giorni">
             <b>
               ${this.traduzioni[this.lang as keyof typeof this.traduzioni].prossimi_giorni}
             </b>
           </div>
         ` : null}
         ${this.nextdays ? html `
-          <div style="display: flex">
+          <div class="giorno-icona">
             ${this.data.daily.weathercode ? this.renderWeek(this.data.daily.weathercode) : null}
           </div>` : null}
         ${this.nextdays ? html `
-          <div style="display: flex; margin-bottom: 8px;">
+          <div class="giorno-label">
             ${this.data.daily.weathercode ? this.renderWeekLabel(this.data.daily.weathercode) : null}
           </div>` : null}
       </div>`
@@ -137,14 +140,14 @@ export class MyElement extends LitElement {
     private renderWeek(data: any) {
       return html `${data.map((i: number, index: number) => { 
         if(index === 0) { return null; }
-        const backimg = 'height: 60px; width: 20%;  background-repeat: no-repeat; background-size: contain; background-position: center center; background-image:url(\'' + this.meteoClient.getIconaMeteo(i) + '\')';
-        return html`<div style="${backimg}"></div>`; })}`
+        const backimg = 'background-image:url(\'' + this.meteoClient.getIconaMeteo(i) + '\')';
+        return html`<div class="giorno-settimana" style="${backimg}"></div>`; })}`
     }
 
     private renderWeekLabel(data: any) {
       return html `${data.map((_i: number, index: number) => { 
         if(index === 0) { return null; }
-        return html`<div style="text-align:center;height: 10px; width: 20%; font-size: 0.8em; margin-top: -10px;">${this.data.daily.time[index].substr(this.data.daily.time[index].length - 2)}</div>`;
+        return html`<div class="giorno-settimana-label">${this.data.daily.time[index].substr(this.data.daily.time[index].length - 2)}</div>`;
     })}`
     }
   }
