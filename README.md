@@ -39,6 +39,32 @@ require('web-weather');
 ></web-weather>
 ```
 
+or you can use 
+
+```js
+// Create the element
+const weather = document.createElement('web-weather');
+
+// Set the properties
+weather.lat             = "44.86"
+weather.lng             = "10.06" 
+weather.lang            = "it"
+weather.title           = "Il meteo a Fidenza"
+weather.backcolor       = "#f9f9f9" 
+weather.padding         = "10" 
+weather.color           = "#292929"
+weather.size            = "1" 
+weather.bdsize          = "0"
+weather.bdradius        = "5" 
+weather.bdcolor         = "#cdcdcd"
+weather.shadow          = true;
+weather.backgroundmode  = true;
+weather.nextdays        = true;
+
+// Put element in to the document
+document.body.append(weather);
+```
+
 ## Property
 ```bash
 lat: Latitude
